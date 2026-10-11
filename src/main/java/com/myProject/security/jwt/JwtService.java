@@ -3,6 +3,7 @@ package com.myProject.security.jwt;
 import java.security.Key;
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.*;
@@ -11,8 +12,10 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "40f3294a929e4f7acf71737a9d4a2b46bfb298b4ab63490532f225352df64277";
-    private static final Long JWT_EXPIRATION = 3600000L; // 1 hour
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
+    @Value("${jwt.expiration}")
+    private Long JWT_EXPIRATION; // 1 hour
     
     public String generateToken(String email, String role) {
         HashMap<String, Object> claims = new HashMap<>();
@@ -27,7 +30,7 @@ public class JwtService {
     }
 
      // Method for signature verification + Extract all claims
-    public Claims extractAllClaims(String token) { // Claim = User informaton
+    public Claims extractAllClaims(String token) { // Claim = User information
         return Jwts.parserBuilder()
                 .setSigningKey(getSignedKey())
                 .build()
