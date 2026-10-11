@@ -13,7 +13,7 @@ public class OrderRequest {
     private Long productId;
     @NotNull(message = "Quantity is required")
     private Integer quantity;
-    @NotBlank(message = "Address is required")
+    // If blank, then user address is added by default
     private String address;
     // Can be blank for Orders with Cash On Delivery payment method
     private String accountNumber;

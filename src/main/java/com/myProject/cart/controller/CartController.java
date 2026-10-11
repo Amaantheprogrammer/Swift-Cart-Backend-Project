@@ -23,8 +23,7 @@ public class CartController {
     
     @PostMapping("/items")
     public ResponseEntity<CartResponse> updateItemQuantity(@Valid @RequestBody UpdateCartRequest request) {
-        CartResponse updatedCart = cartService.updateItemQuantity(request.getProductId(), request.getQuantity());
-        return ResponseEntity.ok(updatedCart);
+        return ResponseEntity.ok(cartService.updateItemQuantity(request.getProductId(), request.getQuantity()));
     }
 
     @DeleteMapping("/items/{productId}")

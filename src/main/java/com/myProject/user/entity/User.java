@@ -43,7 +43,7 @@ public class User {
     @Column(nullable = false)
     private PaymentMethod paymentMethod;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String address;
 
     @Builder.Default

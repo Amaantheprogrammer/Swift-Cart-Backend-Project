@@ -11,5 +11,4 @@ public class HealthController {
     public String healthCheck() {
         return "E-Commerce Backend Application is running";
     }
-    
 }

@@ -138,7 +138,7 @@ public class OrderService {
         Order order = Order.builder()
                 .user(user)
                 .seller(product.getUser())
-                .address(orderRequest.getAddress())
+                .address(orderRequest.getAddress() != null ? orderRequest.getAddress() : user.getAddress())
                 .totalAmount(totalAmount)
                 .orderDate(LocalDateTime.now())
                 .orderStatus(OrderStatus.PENDING)
