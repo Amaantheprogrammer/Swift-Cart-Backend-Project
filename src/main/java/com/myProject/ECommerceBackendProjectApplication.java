@@ -12,5 +12,3 @@ public class ECommerceBackendProjectApplication {
         SpringApplication.run(ECommerceBackendProjectApplication.class, args);
     }
 }
-
-// Start with auth dtos
