@@ -3,9 +3,7 @@ package com.myProject.admin_seeder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.myProject.user.entity.PaymentMethod;
-import com.myProject.user.entity.Role;
-import com.myProject.user.entity.User;
+import com.myProject.user.entity.*;
 import com.myProject.user.repository.UserRepository;
 
 import jakarta.annotation.PostConstruct;

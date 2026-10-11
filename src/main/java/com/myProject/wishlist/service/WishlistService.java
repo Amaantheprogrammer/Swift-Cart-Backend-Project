@@ -1,14 +1,12 @@
 package com.myProject.wishlist.service;
 
-import com.myProject.exception.DuplicateResourceException;
-import com.myProject.exception.ResourceNotFoundException;
+import com.myProject.exception.*;
 import com.myProject.product.entity.Product;
 import com.myProject.product.repository.ProductRepository;
 import com.myProject.security.user.CurrentUserUtil;
 import com.myProject.user.entity.User;
 import com.myProject.wishlist.dto.WishlistResponse;
-import com.myProject.wishlist.entity.Wishlist;
-import com.myProject.wishlist.entity.WishlistItem;
+import com.myProject.wishlist.entity.*;
 import com.myProject.wishlist.repository.WishlistRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

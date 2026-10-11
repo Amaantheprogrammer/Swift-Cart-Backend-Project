@@ -1,19 +1,14 @@
 package com.myProject.auth.service;
 
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.cache.annotation.*;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.myProject.auth.dto.AuthResponse;
-import com.myProject.auth.dto.SignInRequest;
-import com.myProject.auth.dto.SignupRequest;
+import com.myProject.auth.dto.*;
 import com.myProject.security.jwt.JwtService;
-import com.myProject.user.entity.Role;
-import com.myProject.user.entity.User;
+import com.myProject.user.entity.*;
 import com.myProject.user.repository.UserRepository;
 
 import jakarta.transaction.Transactional;

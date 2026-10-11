@@ -1,13 +1,11 @@
-// For user updation
 package com.myProject.user.dto;
 
 import com.myProject.user.entity.PaymentMethod;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateUserRequest {

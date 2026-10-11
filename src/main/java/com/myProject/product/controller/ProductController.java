@@ -5,21 +5,17 @@ import java.util.List;
 
 import com.myProject.product.dto.ImageRequest;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.myProject.product.dto.NewProductRequest;
-import com.myProject.product.dto.ProductResponse;
-import com.myProject.product.dto.UpdateProductRequest;
+import com.myProject.product.dto.*;
 import com.myProject.product.service.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-
 
 @RestController // REST API usage
 @RequiredArgsConstructor // Objects with "final" keyword get added to the constructor

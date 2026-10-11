@@ -1,7 +1,6 @@
 package com.myProject.rest_client.service;
 
-import com.myProject.rest_client.dto.AccountResponse;
-import com.myProject.rest_client.dto.TransactionRequest;
+import com.myProject.rest_client.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;

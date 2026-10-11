@@ -2,20 +2,14 @@ package com.myProject.order.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.myProject.user.entity.PaymentMethod;
-import com.myProject.user.entity.User;
+import com.myProject.user.entity.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.mapping.Join;
 
 @Getter

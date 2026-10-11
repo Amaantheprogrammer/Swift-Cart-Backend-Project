@@ -1,14 +1,11 @@
 package com.myProject.security.jwt;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
 @Service

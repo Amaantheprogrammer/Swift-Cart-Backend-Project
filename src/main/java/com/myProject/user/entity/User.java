@@ -1,7 +1,6 @@
 package com.myProject.user.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.myProject.cart.entity.Cart;
 import com.myProject.order.entity.Order;
@@ -9,11 +8,7 @@ import com.myProject.product.entity.Product;
 
 import com.myProject.wishlist.entity.Wishlist;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter

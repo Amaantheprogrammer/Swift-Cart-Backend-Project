@@ -4,16 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.myProject.order.entity.OrderStatus;
+import com.myProject.order.entity.*;
 import com.myProject.user.entity.PaymentMethod;
-import com.myProject.order.entity.PaymentStatus;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

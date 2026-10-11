@@ -3,16 +3,13 @@ package com.myProject.category.controller;
 import java.util.List;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.myProject.category.dto.CategoryResponse;
-import com.myProject.category.dto.CategoryRequest;
+import com.myProject.category.dto.*;
 import com.myProject.category.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
-
 
 @RestController
 @RequiredArgsConstructor
