@@ -27,7 +27,7 @@ public class CartService {
     private final ModelMapper modelMapper;
     private final CurrentUserUtil currentUserUtil;
 
-    @PreAuthorize("hasRole('ADMIN', 'USER', 'SELLER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'SELLER')")
     @Transactional(readOnly = true)
     public CartResponse getMyCart() {
         User user = currentUserUtil.getCurrentUser();

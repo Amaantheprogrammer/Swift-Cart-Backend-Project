@@ -55,7 +55,7 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
     
-    @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
@@ -68,7 +68,7 @@ public class CategoryService {
         return modelMapper.map(categoryRepository.save(category), CategoryResponse.class);
     }
     
-    @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponse updateCategory(Long id, CategoryRequest categoryRequest) {
