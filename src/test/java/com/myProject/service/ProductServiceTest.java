@@ -57,6 +57,52 @@ public class ProductServiceTest {
     }
 
     @Test
+    void getProductByIdTest() {
+        Category category = Category.builder()
+                .id(1L)
+                .name("Electronics")
+                .build();
+
+        User seller = User.builder()
+                .id(1L)
+                .name("John Welling")
+                .role(Role.ROLE_SELLER)
+                .address("Eddy Castle, 16th floor, Remote street, Russia-290112")
+                .password("hashed_password_123")
+                .email("seller@gmail.com")
+                .build();
+
+        Product existingProduct = Product.builder()
+                .id(1L)
+                .name("Samsung Television")
+                .price(new BigDecimal("20000"))
+                .description("Curved HD TV with free subscription for one month")
+                .productImages(new ArrayList<>())
+                .stockQuantity(15)
+                .user(seller)
+                .category(category)
+                .build();
+
+        ProductResponse expectedResponse = ProductResponse.builder()
+                .id(1L)
+                .name("Samsung Television")
+                .price(new BigDecimal("20000"))
+                .description("Curved HD TV with free subscription for one month")
+                .stockQuantity(15)
+                .categoryId(category.getId())
+                .categoryName(category.getName())
+                .build();
+
+        when(modelMapper.map(any(Product.class), eq(ProductResponse.class))).thenReturn(expectedResponse);
+        when(productRepository.findById(1L)).thenReturn(Optional.of(existingProduct));
+
+        ProductResponse actualResponse = productService.getProductById(1L);
+
+        assertNotNull(actualResponse);
+        assertEquals(expectedResponse.getName(), actualResponse.getName());
+    }
+
+    @Test
     void createProductTest() {
         ProductImage image = ProductImage.builder()
                 .id(1L)
@@ -148,8 +194,8 @@ public class ProductServiceTest {
         when(productRepository.findById(1L)).thenReturn(Optional.of(existingProduct));
         when(currentUserUtil.getCurrentUser()).thenReturn(seller);
         when(productRepository.save(any(Product.class))).thenAnswer(
-                invocation -> invocation.getArgument(0))
-        ;
+                invocation -> invocation.getArgument(0)
+        );
 
         ProductResponse expectedResponse = ProductResponse.builder()
                 .id(1L)
