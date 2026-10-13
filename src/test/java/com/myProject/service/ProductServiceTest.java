@@ -16,7 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -114,5 +116,64 @@ public class ProductServiceTest {
         assertEquals(100L, actualResponse.getId());
         assertEquals("Cricket bat", actualResponse.getName());
         assertEquals("Sports", actualResponse.getCategoryName());
+    }
+
+    @Test
+    void updateProductTest() {
+        Category category = Category.builder()
+                .id(1L)
+                .name("Electronics")
+                .build();
+
+        User seller = User.builder()
+                .id(1L)
+                .name("John Welling")
+                .role(Role.ROLE_SELLER)
+                .address("Eddy Castle, 16th floor, Remote street, Russia-290112")
+                .password("hashed_password_123")
+                .email("seller@gmail.com")
+                .build();
+
+        Product existingProduct = Product.builder()
+                .id(1L)
+                .name("Samsung Television")
+                .price(new BigDecimal("20000"))
+                .description("Curved HD TV with free subscription for one month")
+                .productImages(new ArrayList<>())
+                .stockQuantity(15)
+                .user(seller)
+                .category(category)
+                .build();
+
+        UpdateProductRequest request = UpdateProductRequest.builder()
+                .price(new BigDecimal("22000"))
+                .stockQuantity(20)
+                .build();
+
+        when(productRepository.findById(1L)).thenReturn(Optional.of(existingProduct));
+        when(currentUserUtil.getCurrentUser()).thenReturn(seller);
+        when(productRepository.save(any(Product.class))).thenAnswer(
+                invocation -> invocation.getArgument(0))
+        ;
+
+        ProductResponse expectedResponse = ProductResponse.builder()
+                .id(1L)
+                .name("Samsung Television")
+                .price(new BigDecimal("22000"))
+                .description("Curved HD TV with free subscription for one month")
+                .stockQuantity(20)
+                .categoryId(category.getId())
+                .categoryName(category.getName())
+                .build();
+
+        when(modelMapper.map(any(Product.class), eq(ProductResponse.class))).thenReturn(expectedResponse);
+
+        ProductResponse actualResponse = productService.updateProduct(1L, request);
+
+        assertNotNull(actualResponse);
+        assertEquals(new BigDecimal("22000"), actualResponse.getPrice());
+        assertEquals(20, actualResponse.getStockQuantity());
+        assertEquals("Samsung Television", actualResponse.getName());
+
     }
 }
