@@ -32,26 +32,23 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             token = authHeader.substring(7);
         }
         // 2. Extract claims and role from the token from methods in JwtService class
-        if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Claims claims = jwtService.extractAllClaims(token);
-            String role = jwtService.extractRole(token);
-            if (role != null && !role.startsWith("ROLE_")) {
-                role = "ROLE_" + role;
+        try {
+            String email = jwtService.extractEmail(token);
+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null && jwtService.isTokenValid(token, email)) {
+                Claims claims = jwtService.extractAllClaims(token);
+                String role = jwtService.extractRole(token);
+                List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        claims.getSubject(),
+                        null,
+                        authorities
+                );
+                // For additional details
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-            List<SimpleGrantedAuthority> simpleGrantedAuthorities = List.of(new SimpleGrantedAuthority(role));
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                claims.getSubject(), null, simpleGrantedAuthorities
-            );
-            // For additional details (next line only)
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-            System.out.println(
-                    "Authentication authorities: "
-                            + SecurityContextHolder.getContext()
-                            .getAuthentication()
-                            .getAuthorities()
-            );
+        } catch (Exception e) {
+            SecurityContextHolder.clearContext();
         }
         filterChain.doFilter(request, response);
     }

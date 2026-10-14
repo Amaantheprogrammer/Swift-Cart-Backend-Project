@@ -13,17 +13,17 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
 
     @Value("${jwt.secret}")
-    private String SECRET_KEY;
+    private String secretKey;
     @Value("${jwt.expiration}")
-    private Long JWT_EXPIRATION; // 1 hour
-    
+    private Long jwtExpiration; // 1 hour
+
     public String generateToken(String email, String role) {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("role", role);
         return Jwts.builder()
             .setSubject(email)
             .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION)) // 1 hour expiration time
+            .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration)) // 1 hour expiration time
             .addClaims(claims)
             .signWith(getSignedKey(), SignatureAlgorithm.HS256)
             .compact();
@@ -37,11 +37,11 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
-    
+
     public String extractEmail(String token) {
         return extractAllClaims(token).getSubject();
     }
-    
+
     public String extractRole(String token) {
         return extractAllClaims(token).get("role", String.class);
     }
@@ -57,10 +57,10 @@ public class JwtService {
     public boolean isTokenValid(String token, String email) {
         return email.equals(extractEmail(token)) && !isTokenExpired(token);
     }
-    
+
     // Private methods:
     // Method to get signed key
     private Key getSignedKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 }
