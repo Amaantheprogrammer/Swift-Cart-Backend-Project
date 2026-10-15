@@ -130,8 +130,8 @@ public class ProductService {
         if (updateProductRequest.getStockQuantity() != null) {
             product.setStockQuantity(updateProductRequest.getStockQuantity());
         }
-        Product savedProduct = productRepository.save(product);
-        return modelMapper.map(savedProduct, ProductResponse.class);
+        // No need to save in DB because Hibernate dirty checking handles it
+        return modelMapper.map(product, ProductResponse.class);
     }
 
     @PreAuthorize("hasRole('SELLER')")
