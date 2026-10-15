@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 public class HealthController {
     @GetMapping("/")
     public String healthCheck() {
-        return "E-Commerce Backend Application is running";
+        return "Swift Cart Backend Application is running";
     }
 }
