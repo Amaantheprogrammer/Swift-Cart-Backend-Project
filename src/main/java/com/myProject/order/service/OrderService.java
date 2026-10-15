@@ -114,7 +114,7 @@ public class OrderService {
         PaymentMethod paymentMethod = user.getPaymentMethod();
         Integer stockQuantity = product.getStockQuantity();
         if (stockQuantity < quantity) {
-            throw new BadRequestException("Insufficient stock for product: " + product.getName());
+            throw new InsufficientResourceException("Insufficient stock for product: " + product.getName());
         }
         BigDecimal totalAmount = product.getPrice().multiply(BigDecimal.valueOf(quantity));
         if (paymentMethod == PaymentMethod.BANK_TRANSFER) {
@@ -126,7 +126,7 @@ public class OrderService {
             }
             AccountResponse account = digitalBankingClientService.getAccountByNumber(orderRequest.getAccountNumber());
             if (account.getBalance().compareTo(totalAmount) < 0) {
-                throw new BadRequestException("Insufficient balance in the account");
+                throw new InsufficientResourceException("Insufficient balance in the account");
             }
             TransactionRequest withdrawRequest = TransactionRequest.builder()
                     .accountNumber(orderRequest.getAccountNumber())
@@ -178,7 +178,7 @@ public class OrderService {
         for (CartItem cartItem : cartItems) {
             Product product = cartItem.getProduct();
             if (product.getStockQuantity() < cartItem.getQuantity()) {
-                throw new BadRequestException("Insufficient stock for product: " + product.getName());
+                throw new InsufficientResourceException("Insufficient stock for product: " + product.getName());
             }
             totalAmount = totalAmount.add(
                     product.getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()))
@@ -190,7 +190,7 @@ public class OrderService {
             }
             AccountResponse primaryAccount = digitalBankingClientService.getMyAccounts().getFirst();
             if (primaryAccount.getBalance().compareTo(totalAmount) < 0) {
-                throw new BadRequestException("Insufficient balance in account");
+                throw new InsufficientResourceException("Insufficient balance in account");
             }
             TransactionRequest withdrawRequest = TransactionRequest.builder()
                     .accountNumber(primaryAccount.getAccountNumber())

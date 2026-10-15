@@ -40,6 +40,16 @@ public class GlobalExceptionHandler {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
         }
 
+        @ExceptionHandler(InsufficientResourceException.class)
+        public ResponseEntity<ErrorResponse> handleInsufficientResourceException(InsufficientResourceException ex) {
+            ErrorResponse error = ErrorResponse.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message(ex.getMessage())
+                    .timestamp(LocalDateTime.now())
+                    .build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+
         @ExceptionHandler(MethodArgumentNotValidException.class)
         public ResponseEntity<ErrorResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
                 String message = ex.getBindingResult()
