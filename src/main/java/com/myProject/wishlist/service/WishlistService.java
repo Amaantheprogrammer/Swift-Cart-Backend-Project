@@ -22,7 +22,7 @@ public class WishlistService {
     private final ModelMapper modelMapper;
     private final CurrentUserUtil currentUserUtil;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public WishlistResponse getMyWishlist() {
         Wishlist wishlist = getOrCreateWishlist();
         return modelMapper.map(wishlist, WishlistResponse.class);
