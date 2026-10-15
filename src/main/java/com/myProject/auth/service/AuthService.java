@@ -58,6 +58,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .paymentMethod(request.getPaymentMethod())
                 .role(request.getRole())
+                .address(request.getAddress())
                 .build();
         userRepository.save(user);
     }

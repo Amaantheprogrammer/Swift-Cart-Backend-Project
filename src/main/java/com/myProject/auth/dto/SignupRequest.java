@@ -26,4 +26,7 @@ public class SignupRequest {
 
     @NotBlank(message = "Role is a required field")
     private Role role;
+
+    @NotBlank(message = "Address is a required field")
+    private String address;
 }
