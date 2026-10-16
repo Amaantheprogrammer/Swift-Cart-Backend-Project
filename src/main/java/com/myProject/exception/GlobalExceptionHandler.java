@@ -13,7 +13,6 @@ public class GlobalExceptionHandler {
         @ExceptionHandler(ResourceNotFoundException.class)
         public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
             ErrorResponse error = ErrorResponse.builder()
-                        .status(HttpStatus.NOT_FOUND.value())
                         .message(ex.getMessage())
                         .timestamp(LocalDateTime.now())
                         .build();
@@ -23,7 +22,6 @@ public class GlobalExceptionHandler {
         @ExceptionHandler(BadRequestException.class)
         public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException ex) {
                 ErrorResponse error = ErrorResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST.value())
                         .message(ex.getMessage())
                         .timestamp(LocalDateTime.now())
                         .build();
@@ -33,7 +31,6 @@ public class GlobalExceptionHandler {
         @ExceptionHandler(DuplicateResourceException.class)
         public ResponseEntity<ErrorResponse> handleDuplicateResourceException(DuplicateResourceException ex) {
             ErrorResponse error = ErrorResponse.builder()
-                    .status(HttpStatus.CONFLICT.value())
                     .message(ex.getMessage())
                     .timestamp(LocalDateTime.now())
                     .build();
@@ -43,11 +40,10 @@ public class GlobalExceptionHandler {
         @ExceptionHandler(InsufficientResourceException.class)
         public ResponseEntity<ErrorResponse> handleInsufficientResourceException(InsufficientResourceException ex) {
             ErrorResponse error = ErrorResponse.builder()
-                    .status(HttpStatus.BAD_REQUEST.value())
                     .message(ex.getMessage())
                     .timestamp(LocalDateTime.now())
                     .build();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
         }
 
         @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -58,8 +54,7 @@ public class GlobalExceptionHandler {
                                 .map(err -> err.getField() + ": " + err.getDefaultMessage())
                                 .collect(Collectors.joining(", "));
                 ErrorResponse error = ErrorResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST.value())
-                        .message(ex.getMessage())
+                        .message(message)
                         .timestamp(LocalDateTime.now())
                         .build();
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -68,17 +63,12 @@ public class GlobalExceptionHandler {
         @ExceptionHandler(Exception.class)
         @SuppressWarnings("CallToPrintStackTrace")
         public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-
                 ex.printStackTrace();
-
                 ErrorResponse error = ErrorResponse.builder()
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                         .message(ex.getMessage())
                         .timestamp(LocalDateTime.now())
                         .build();
 
-                return ResponseEntity
-                                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .body(error);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
 }
