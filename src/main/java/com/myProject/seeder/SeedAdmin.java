@@ -1,4 +1,4 @@
-package com.myProject.admin_seeder;
+package com.myProject.seeder;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
