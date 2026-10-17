@@ -1,4 +1,4 @@
-# 🛒 Swift Cart — E-Commerce Backend Platform
+# 🛒 Swift Cart: E-Commerce Backend Platform
 
 **A secure, modular, and performance-conscious e-commerce backend built with Java and Spring Boot.**
 
